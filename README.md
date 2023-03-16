@@ -1,4 +1,4 @@
-# dsci-560-project
+# Team Data Trojans DSCI560 Project
 
 Install dependencies:
 ```
