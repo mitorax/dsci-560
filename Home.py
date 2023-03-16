@@ -12,7 +12,7 @@ def run():
         page_icon="🏠️",
     )
 
-    st.sidebar.success("⬆️ Select an option above")
+    st.sidebar.success("👆️ Select an option above")
 
     st.write("# Welcome to [Project-Name]! 👋")
 
