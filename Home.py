@@ -1,18 +1,5 @@
-# Copyright 2018-2022 Streamlit Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#    http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-
 import streamlit as st
+import streamlit.components.v1 as components
 from streamlit.logger import get_logger
 
 LOGGER = get_logger(__name__)
@@ -22,30 +9,46 @@ def run():
 
     st.set_page_config(
         page_title="Home",
-        page_icon="",
+        page_icon="🏠️",
     )
-    # st.sidebar.title('Arup Social Data')
 
-    st.write("# Welcome to Streamlit! 👋")
+    st.sidebar.success("⬆️ Select an option above. ⬆️")
 
-    st.sidebar.success("Select a demo above.")
+    st.write("# Welcome to [Project-Name]! 👋")
 
     st.markdown(
         """
-        Streamlit is an open-source app framework built specifically for
-        Machine Learning and Data Science projects.
-        **👈 Select a demo from the sidebar** to see some examples
-        of what Streamlit can do!
-        ### Want to learn more?
-        - Check out [streamlit.io](https://streamlit.io)
-        - Jump into our [documentation](https://docs.streamlit.io)
-        - Ask a question in our [community
-          forums](https://discuss.streamlit.io)
-        ### See more complex demos
-        - Use a neural net to [analyze the Udacity Self-driving Car Image
-          Dataset](https://github.com/streamlit/demo-self-driving)
-        - Explore a [New York City rideshare dataset](https://github.com/streamlit/demo-uber-nyc-pickups)
-    """
+			[Project-Name] is an app built specifically for
+			[placeholder].
+			**👈 Select an option from the sidebar** to see some examples
+			of what [Project-Name] can do!
+   
+    	"""
+    )
+
+    st.text("")
+
+    st.markdown(
+        """
+			### What you can do with [Project-Name]:
+			- [Feature]
+			- [Feature]
+			- [Feature]
+		"""
+    )
+
+    st.text("")
+
+    video_file = open('Assets/stars-6962.mp4', 'rb')
+    video_bytes = video_file.read()
+    st.video(video_bytes)
+
+    st.text("")
+
+    st.markdown(
+        """
+			##### 👉️ Check out [the GitHub repo](https://github.com/mitorax/dsci-560-project)
+		"""
     )
 
 
