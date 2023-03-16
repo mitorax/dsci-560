@@ -1,2 +1,11 @@
-# dsci-560
-dsci 560 project
+# dsci-560-project
+
+Install dependencies:
+```
+pip install streamlit
+```
+
+Run app:
+```
+streamlit run Home.py
+```
