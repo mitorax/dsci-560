@@ -13,6 +13,7 @@ def run():
     )
 
     st.sidebar.success("👆️ Select an option above")
+    st.sidebar.text("©️2023 Data Trojans")
 
     st.write("# Welcome to [Project-Name]! 👋")
 
