@@ -18,10 +18,9 @@ def run():
 
     st.markdown(
         """
-			[Project-Name] is an app built specifically for
-			[placeholder].
-			**👈 Select an option from the sidebar** to see some examples
-			of what [Project-Name] can do!
+			[Project-Name] is an app built specifically for [placeholder].
+   
+			**👈 Select an option from the sidebar** to see what [Project-Name] can do!
    
     	"""
     )
