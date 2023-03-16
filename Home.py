@@ -11,8 +11,9 @@ def run():
         page_title="Home",
         page_icon="🏠️",
     )
-
+    st.sidebar.text("")
     st.sidebar.success("👆️ Select an option above")
+    st.sidebar.text("")
     st.sidebar.text("©️2023 Data Trojans")
 
     st.write("# Welcome to [Project-Name]! 👋")
