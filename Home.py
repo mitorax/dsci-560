@@ -20,10 +20,8 @@ def run():
 
     st.markdown(
         """
-			[Project-Name] is an app built specifically for [placeholder].
-   
-			**👈 Select an option from the sidebar** to see what [Project-Name] can do!
-   
+			[Project-Name] is built for helping people find the best area to live in based on personal preferences.
+
     	"""
     )
 
@@ -31,10 +29,26 @@ def run():
 
     st.markdown(
         """
+            Whether you want to settle in as a young family, work hard and save up money, live a balanced life, [Project-Name] provides you with the tools to find a place to live that will support you in that lifestyle.
+        """
+    )
+
+    st.text("")
+
+    st.markdown(
+        """
+            **👈 Select an option from the sidebar** to see what [Project-Name] can do!
+        """
+    )
+
+    st.text("")
+
+    st.markdown(
+        """
 			### What you can do with [Project-Name]:
-			- [Feature]
-			- [Feature]
-			- [Feature]
+			- Get a recommendation on living areas based on your preferences
+			- Future trends forecasting on living areas
+			- Explore the data and discover on your own
 		"""
     )
 
