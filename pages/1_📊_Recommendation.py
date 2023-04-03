@@ -46,6 +46,7 @@ def recommendation():
 st.set_page_config(page_title="Recommendation", page_icon="📊")
 st.markdown("# Recommendation")
 st.sidebar.header("Recommendation")
+st.sidebar.text("[add descritption]")
 st.write(
     """Choose below what you are interested in when looking for a place to live and see what recommendations you will get based on that"""
 )
