@@ -1,6 +1,8 @@
 import streamlit as st
 import streamlit.components.v1 as components
 from streamlit.logger import get_logger
+import plotly.express as px
+import pandas as pd
 
 LOGGER = get_logger(__name__)
 
@@ -40,6 +42,40 @@ def run():
             **👈 Select an option from the sidebar** to see what [Project-Name] can do!
         """
     )
+    socal_pop = pd.read_csv('final_dataset/socal_pop.csv')
+
+    fig = px.line(socal_pop, x='Year', y='Normalized Population', color='County', hover_data=['Population'], markers=True)
+    fig.update_layout(plot_bgcolor='white')
+    fig.update_layout(
+        title={
+            'text': "Southern California County Population Trend",
+            'y':0.95,
+            'x':0.445,
+            'xanchor': 'center',
+            'yanchor': 'top'},
+        xaxis = dict(
+            showgrid=True,
+            gridwidth=0.5,
+            gridcolor='grey',
+            griddash='dash',
+            mirror=True,
+            ticks='outside',
+            showline=True,
+            tickmode='linear',
+            linecolor='black',
+            linewidth=1),
+        yaxis = dict(
+            mirror=True,
+            ticks='outside',
+            showline=True,
+            linecolor='black',
+            linewidth=1),
+        font=dict(
+            family="Times New Roman",
+            size=15,
+            color="Black"))
+    st.plotly_chart(fig, use_container_width=True)
+
 
     st.text("")
 
