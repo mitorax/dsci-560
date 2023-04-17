@@ -30,9 +30,44 @@ st.set_page_config(page_title="Forecasting", page_icon="📈")
 st.markdown("# Forecasting")
 st.sidebar.header("Forecasting")
 st.write(
-    """This demo illustrates a combination of plotting and animation with
-Streamlit. We're generating a bunch of random numbers in a loop for around
-5 seconds. Enjoy!"""
+    """
+    In this page, we show both the county-level and city/neighborhood growth forecasting result in LA county.
+    
+    Normally, when referring to city growth, it only projects population growth.
+    However, in order to consider multiple aspects of the city, we propose an index that will effectively project city's growth trend that takes `Opportunity`, `Affordability`, and `Safety` into account.
+    
+    We will define this index as OASI(Opportunity, Affordability, Safety Index).
+    
+    """
+)
+st.text("")
+
+st.markdown(
+        """
+           $$OASI = {\t{employment rate} \over \t{unemployment rate} * \t{cpi indexes} * \t{crime rate}}$$ 
+        """
+)
+
+st.text("")
+
+st.markdown(
+        """
+            As it is challenging to get specific economic indicator datasets for neighborhood level, we will build a time series model to project
+            county-levle growth trend using:
+
+            - CPI indexes
+            - Employment stats 
+            - Crime dataset
+            - Population dataset
+
+            Then, using this model we will approximate the city/neighborhood-level growth trend using neighborhood specific datsets, such as:
+
+            - Housing price trend
+            - Proximity to Hospitals/Parks/Social places
+            - Census data
+            - And more...
+
+        """
 )
 
 plotting_demo()

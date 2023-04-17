@@ -18,29 +18,16 @@ def run():
     st.sidebar.text("")
     st.sidebar.text("©️2023 Data Trojans")
 
-    st.write("# Living Recommendation and Trend Prediction within the City of Los Angeles")
+    st.write("# Living Recommendation and Trend Prediction within the LA County")
 
     st.markdown(
         """
-			[Project-Name] is built for helping people find the best area to live in based on personal preferences.
+            Most of the Southern California Counties have shown decreasing population trend recent years, with so called *"California Exodus"*.
+            
+            In this web application we want to help you to find what is the best city/neighborhood to live in within in LA county based on your goals and preferences, to make your life easier!
+
 
     	"""
-    )
-
-    st.text("")
-
-    st.markdown(
-        """
-            Whether you want to settle in as a young family, work hard and save up money, live a balanced life, [Project-Name] provides you with the tools to find a place to live that will support you in that lifestyle.
-        """
-    )
-
-    st.text("")
-
-    st.markdown(
-        """
-            **👈 Select an option from the sidebar** to see what [Project-Name] can do!
-        """
     )
     socal_pop = pd.read_csv('final_dataset/socal_pop.csv')
 
@@ -81,12 +68,31 @@ def run():
 
     st.markdown(
         """
-			### What you can do with [Project-Name]:
+            Whether you want to settle in as a young family, work hard and save up money, live a balanced life, this application provides you with the tools to find a place to live that will support you in that lifestyle.
+            
+            Or if you are City officials or looking for inveesting opportunity, you can exploit our application with interactive data exploration tools and check out the deep learning based neighborhood growth forecasting result. 
+        """
+    )
+    st.text("")
+
+    st.markdown(
+        """
+			### Avaiable features:
 			- Get a recommendation on living areas based on your preferences
 			- Future trends forecasting on living areas
 			- Explore the data and discover on your own
 		"""
     )
+
+    st.text("")
+
+    st.markdown(
+        """
+            **👈 Select an option from the sidebar** to see what you can do!
+        """
+    )
+
+    
 
     # st.text("")
 
