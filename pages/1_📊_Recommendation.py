@@ -27,12 +27,13 @@ def recommendation():
         if not selected:
             st.error("Please select at least one interest.")
         else:
+            st.write("")
             st.write("Running recommendation model with interests:")
             for item in selected:
                 st.write(item)
 
-            if st.button("Get Results", type='primary'):
-                run_model(selected)
+            # if st.button("Get Results", type='primary'):
+            #     run_model(selected)
 
     except URLError as e:
         st.error(
@@ -50,5 +51,6 @@ st.sidebar.text("[add descritption]")
 st.write(
     """Choose below what you are interested in when looking for a place to live and see what recommendations you will get based on that"""
 )
+st.write("")
 
 recommendation()
