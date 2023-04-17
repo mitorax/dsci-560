@@ -31,8 +31,8 @@ def recommendation():
             for item in selected:
                 st.write(item)
 
-            # if st.button("Get Results", type='primary'):
-            #     run_model(selected)
+            if st.button("Get Results", type='primary'):
+                run_model(selected)
 
     except URLError as e:
         st.error(
