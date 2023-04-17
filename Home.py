@@ -10,7 +10,7 @@ LOGGER = get_logger(__name__)
 def run():
 
     st.set_page_config(
-        page_title="LA neighborhood recommender",
+        page_title="LA neighborhood Recommender",
         page_icon="🏠️",
     )
     st.sidebar.text("")
@@ -18,7 +18,7 @@ def run():
     st.sidebar.text("")
     st.sidebar.text("©️2023 Data Trojans")
 
-    st.write("Living Recommendation and Trend Prediction within the City of Los Angeles")
+    st.write("# Living Recommendation and Trend Prediction within the City of Los Angeles")
 
     st.markdown(
         """
