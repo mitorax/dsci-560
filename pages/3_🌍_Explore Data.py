@@ -18,7 +18,7 @@ def census_data():
     try:
         df = get_census_data()
         selected = st.multiselect(
-            "Choose counties", list(df.index), [
+            "Choose counties 👇️", list(df.index), [
                 "Los Angeles County"]
         )
         if not selected:
