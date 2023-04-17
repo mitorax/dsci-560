@@ -181,7 +181,7 @@ if "Parks" in selected_data:
         title={
             'text': 'Type of Parks and Recreation in LA county',
             'y': 0.975,
-            'x': 0.5,
+            'x': 0.25,
             'xanchor': 'center',
             'yanchor': 'top'},
         showlegend=False,
@@ -207,3 +207,38 @@ if "Parks" in selected_data:
             color="Black"
         ))
     st.plotly_chart(fig, use_container_width=True)
+
+
+if "Crime" in selected_data:
+    crime_occ = pd.read_csv('final_dataset/LA_crime_occ.csv')
+    fig = px.line(crime_occ, x='year', y='occurences', markers=True)
+fig.update_layout(plot_bgcolor='white')
+fig.update_layout(
+    title={
+        'text': "Los Angeles County Crime occurences trend",
+        'y': 0.95,
+        'x': 0.25,
+        'xanchor': 'center',
+        'yanchor': 'top'},
+    xaxis=dict(
+        showgrid=True,
+        gridwidth=0.5,
+        gridcolor='grey',
+        griddash='dash',
+        mirror=True,
+        ticks='outside',
+        showline=True,
+        tickmode='linear',
+        linecolor='black',
+        linewidth=1),
+    yaxis=dict(
+        mirror=True,
+        ticks='outside',
+        showline=True,
+        linecolor='black',
+        linewidth=1),
+    font=dict(
+        family="Times New Roman",
+        size=15,
+        color="Black"))
+st.plotly_chart(fig, use_container_width=True)
