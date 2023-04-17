@@ -44,7 +44,7 @@ st.text("")
 
 st.markdown(
         """
-           $$OASI = {\t{employment rate} \over \t{unemployment rate} * \t{cpi indexes} * \t{crime rate}}$$ 
+           $$OASI = {${employment rate}$ \over \t{unemployment rate} * \t{cpi indexes} * \t{crime rate}}$$ 
         """
 )
 
@@ -65,6 +65,7 @@ st.markdown(
             - Housing price trend
             - Proximity to Hospitals/Parks/Social places
             - Census data
+            - And more...
 
         """
 )
