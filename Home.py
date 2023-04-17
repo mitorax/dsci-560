@@ -22,7 +22,7 @@ def run():
 
     st.markdown(
         """
-            Most of the Southern California Counties have shown decreasing population trend recent years, with so called `California Exodus`.
+            Most of the Southern California Counties have shown decreasing population trend recent years, with so called *California Exodus*.
             In this web application we want to help you to find what is the best city/neighborhood to live in within in LA county and Orange county based on your goals and preferences, to make your life easier!
 
 
