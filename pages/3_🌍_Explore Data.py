@@ -19,7 +19,7 @@ def census_data():
         df = get_census_data()
         selected = st.multiselect(
             "Choose counties 👇️", list(df.index), [
-                "Los Angeles County"]
+                "Los Angeles County", "Orange County"]
         )
         if not selected:
             st.error("Please select at least one county.")
