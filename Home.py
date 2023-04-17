@@ -10,7 +10,7 @@ LOGGER = get_logger(__name__)
 def run():
 
     st.set_page_config(
-        page_title="Project-Name",
+        page_title="LA neighborhood recommender",
         page_icon="🏠️",
     )
     st.sidebar.text("")
@@ -18,7 +18,7 @@ def run():
     st.sidebar.text("")
     st.sidebar.text("©️2023 Data Trojans")
 
-    st.write("# Welcome to [Project-Name]! 👋")
+    st.write("Living Recommendation and Trend Prediction within the City of Los Angeles")
 
     st.markdown(
         """
@@ -88,11 +88,11 @@ def run():
 		"""
     )
 
-    st.text("")
+    # st.text("")
 
-    video_file = open('Assets/stars-6962.mp4', 'rb')
-    video_bytes = video_file.read()
-    st.video(video_bytes)
+    # video_file = open('Assets/stars-6962.mp4', 'rb')
+    # video_bytes = video_file.read()
+    # st.video(video_bytes)
 
     st.text("")
 
