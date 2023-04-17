@@ -13,6 +13,7 @@ def census_data():
         # AWS_BUCKET_URL = "http://streamlit-demo-data.s3-us-west-2.amazonaws.com"
         # df = pd.read_csv(AWS_BUCKET_URL + "/agri.csv.gz")
         df = pd.read_csv("Datasets_raw/acs2017_county_data.csv")
+        df = df.loc[df['State']=='California'].reset_index(drop=True)
         return df.set_index("County")
 
     try:
