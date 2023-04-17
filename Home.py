@@ -23,27 +23,11 @@ def run():
     st.markdown(
         """
             Most of the Southern California Counties have shown decreasing population trend recent years, with so called *"California Exodus"*.
+            
             In this web application we want to help you to find what is the best city/neighborhood to live in within in LA county based on your goals and preferences, to make your life easier!
 
 
     	"""
-    )
-
-    st.text("")
-
-    st.markdown(
-        """
-            Whether you want to settle in as a young family, work hard and save up money, live a balanced life, this application provides you with the tools to find a place to live that will support you in that lifestyle.
-            Or if you are City officials or looking for inveesting opportunity, you can exploit our application with interactive data exploration tools and check out the deep learning based neighborhood growth forecasting result. 
-        """
-    )
-
-    st.text("")
-
-    st.markdown(
-        """
-            **👈 Select an option from the sidebar** to see what you can do!
-        """
     )
     socal_pop = pd.read_csv('final_dataset/socal_pop.csv')
 
@@ -84,12 +68,31 @@ def run():
 
     st.markdown(
         """
+            Whether you want to settle in as a young family, work hard and save up money, live a balanced life, this application provides you with the tools to find a place to live that will support you in that lifestyle.
+            
+            Or if you are City officials or looking for inveesting opportunity, you can exploit our application with interactive data exploration tools and check out the deep learning based neighborhood growth forecasting result. 
+        """
+    )
+    st.text("")
+
+    st.markdown(
+        """
 			### Avaiable features:
 			- Get a recommendation on living areas based on your preferences
 			- Future trends forecasting on living areas
 			- Explore the data and discover on your own
 		"""
     )
+
+    st.text("")
+
+    st.markdown(
+        """
+            **👈 Select an option from the sidebar** to see what you can do!
+        """
+    )
+
+    
 
     # st.text("")
 
