@@ -132,15 +132,15 @@ st.sidebar.header("Heat Maps")
 
 
 mapbox_access_token = "pk.eyJ1IjoibWFwYm94c2VvIiwiYSI6ImNsZHo0ejU0dzBxMHAzb292Ym41Yzk4bzMifQ.ZYVGCdm8E2kH2QGi2gd9ng"
-park = get_data("Datasets_raw/park_facilities_la.csv")
-cs = get_data("Datasets_raw/crime_all.csv", sample=True, sample_size=0.04)
+park = get_data("final_dataset/park_facilities_la.csv")
+cs = get_data("Datasets_Big/crime_all.csv", sample=True, sample_size=0.04)
 cs_sample = cs
-hospital_la = get_data('Datasets_raw/hospital_facility_la.csv')
-la_places = get_data("Datasets_raw/LA_places_cleaned.csv",
+hospital_la = get_data('final_dataset/hospital_facility_la.csv')
+la_places = get_data("Datasets_Big/LA_places_cleaned.csv",
                      sample=True, sample_size=0.1)
 
 neighborhoods = gpd.read_file(
-    'Datasets_raw/l.a. county neighborhood (current).shp')
+    'final_dataset/l.a. county neighborhood (current).shp')
 
 
 # neighborhood_names = []

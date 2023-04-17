@@ -12,8 +12,8 @@ def census_data():
     def get_census_data():
         # AWS_BUCKET_URL = "http://streamlit-demo-data.s3-us-west-2.amazonaws.com"
         # df = pd.read_csv(AWS_BUCKET_URL + "/agri.csv.gz")
-        df = pd.read_csv("Datasets_raw/acs2017_county_data.csv")
-        df = df.loc[df['State']=='California'].reset_index(drop=True)
+        df = pd.read_csv("final_dataset/acs2017_county_data.csv")
+        df = df.loc[df['State'] == 'California'].reset_index(drop=True)
         return df.set_index("County")
 
     try:
@@ -78,7 +78,7 @@ with tab2:
     st.write("")
     st.write("")
 
-    park = pd.read_csv("Datasets_raw/park_facilities_la.csv")
+    park = pd.read_csv("final_dataset/park_facilities_la.csv")
     fig = px.histogram(park, x="LocationType")
     fig.update_traces(marker_line=dict(width=2.5, color='black'))
     fig.update_layout(paper_bgcolor="white",
