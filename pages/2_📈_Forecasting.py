@@ -31,10 +31,11 @@ st.markdown("# Forecasting")
 st.sidebar.header("Forecasting")
 st.write(
     """
-    In this page, we show both the county-level and city/neighborhood-level growth forecasting result for LA county.
+    In this page, we show both the county-level and city/neighborhood growth forecasting result in LA county.
     
     Normally, when referring to city growth, it only projects population growth.
     However, in order to consider multiple aspects of the city, we propose an index that will effectively project city's growth trend that takes `Opportunity`, `Affordability`, and `Safety` into account.
+    
     We will define this index as OASI(Opportunity, Affordability, Safety Index).
     
     """
@@ -43,7 +44,7 @@ st.text("")
 
 st.markdown(
         """
-           $$OASI = {\text{employment rate} \over \text{unemployment rate} * \text{cpi indexes} * \text{crime rate}}$$ 
+           $$OASI = {\t{employment rate} \over \t{unemployment rate} * \t{cpi indexes} * \t{crime rate}}$$ 
         """
 )
 
