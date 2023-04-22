@@ -5,6 +5,22 @@ import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
 import geopandas as gpd
+import s3fs
+import io
+
+
+fs = s3fs.S3FileSystem(anon=False)
+
+
+@st.cache_data()
+def get_data_aws(filename, sample_size=None):
+    with fs.open(filename) as f:
+        data = f.read().decode("utf-8")
+
+        data = io.StringIO(data)
+
+        df = pd.read_csv(data).sample(frac=sample_size, random_state=1)
+        return df
 
 
 @st.cache_data
@@ -33,8 +49,6 @@ def make_map(
     selected_neighb
 ):
 
-    # print(selected_data)
-
     if crime_years[0] != 2010 or crime_years[1] != 2023:
         cs['DATE OCC'] = pd.to_datetime(cs['DATE OCC'])
         cs = cs[cs["DATE OCC"].dt.year.le(
@@ -42,15 +56,12 @@ def make_map(
     else:
         cs = cs_sample
 
-    # print(cs.shape[0])
-
     if len(selected_neighb):
         neighb = neighborhoods.loc[neighborhoods['name'] == selected_neighb[0]]
         fig = px.choropleth_mapbox(
             neighb,
             geojson=neighb.geometry,
             locations=neighb.index,
-            # color_continuous_scale="Teal",
             color='name',
             color_discrete_map={selected_neighb[0]: 'rgba(179,205,227,0.5)'},
             mapbox_style="carto-positron",
@@ -133,20 +144,16 @@ st.sidebar.header("Heat Maps")
 
 mapbox_access_token = "pk.eyJ1IjoibWFwYm94c2VvIiwiYSI6ImNsZHo0ejU0dzBxMHAzb292Ym41Yzk4bzMifQ.ZYVGCdm8E2kH2QGi2gd9ng"
 park = get_data("final_dataset/park_facilities_la.csv")
-cs = get_data("Datasets_Big/crime_all.csv", sample=True, sample_size=0.04)
+# cs = get_data("Datasets_Big/crime_all.csv", sample=True, sample_size=0.04)
+cs = get_data_aws('data-trojans/crime_all.csv', sample_size=0.04)
 cs_sample = cs
 hospital_la = get_data('final_dataset/hospital_facility_la.csv')
-la_places = get_data("Datasets_Big/LA_places_cleaned.csv",
-                     sample=True, sample_size=0.1)
+# la_places = get_data("Datasets_Big/LA_places_cleaned.csv",
+#                      sample=True, sample_size=0.1)
+la_places = get_data_aws('data-trojans/LA_places_cleaned.csv', sample_size=0.1)
 
 neighborhoods = gpd.read_file(
     'final_dataset/l.a. county neighborhood (current).shp')
-
-
-# neighborhood_names = []
-# for name in neighborhoods['slug']:
-#     name = name.replace('-', ' ')
-#     neighborhood_names.append(name.title())
 
 
 selected_data = st.multiselect(
@@ -273,12 +280,8 @@ if "Parks" in selected_data:
 if "Crime" in selected_data:
     crime_occ = pd.read_csv('final_dataset/LA_crime_occ.csv')
     if crime_years[0] != 2010 or crime_years[1] != 2023:
-        # crime_occ['year'] = pd.to_datetime(crime_occ['year'])
         crime_occ = crime_occ[crime_occ["year"].le(
             crime_years[1]-1) & crime_occ["year"].ge(crime_years[0])]
-        # crime_occ = crime_occ[(crime_occ.year >=
-        #   crime_years[0]) & (crime_occ.year < crime_years[1])]
-        print(crime_occ)
 
     fig = px.line(crime_occ, x='year', y='occurences', markers=True)
     fig.update_layout(plot_bgcolor='white')
