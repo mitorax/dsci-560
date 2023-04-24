@@ -10,8 +10,8 @@ rec_df=pd.read_csv("final_dataset/rec_df.csv")
 
 
 def run_model(d, income_s, selected):
-    df= select_income(income_s)
-    df= select_income(d,df)
+    df= select_income(income_s[0])
+    df= select_income(d[0],df)
     
     df = df.sort_values(by=selected, ascending=False)
     
@@ -83,9 +83,6 @@ def recommendation():
         else:
             st.write("")
             st.write("Running recommendation model with Preferences:")
-            st.write(type(income_selected))
-            st.write(type(selected))
-            st.write(type(density))
             for item in income_selected:
                 st.write(item)
             for item in selected:
