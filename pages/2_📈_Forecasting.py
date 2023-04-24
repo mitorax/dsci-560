@@ -1,11 +1,7 @@
 import streamlit as st
 import time
 import numpy as np
-<<<<<<< HEAD
 from PIL import Image
-=======
-from utils import show_code
->>>>>>> ffe1bd857050f94a4cf9db369fe2fc726b68e120
 
 
 def plotting_demo():
@@ -56,7 +52,7 @@ st.write(
 st.text("")
 
 st.markdown(
-        """
+    """
            $$OASI = {\t{employment rate} \over \t{unemployment rate} + \t{cpi indexes} + \t{crime rate}}$$ 
         """
 )
@@ -64,7 +60,7 @@ st.markdown(
 st.text("")
 
 st.markdown(
-        """
+    """
             As it is challenging to get specific economic indicator datasets for neighborhood level, we will build a time series model to project
             county-levle growth trend using:
 
@@ -83,7 +79,6 @@ st.markdown(
         """
 )
 
-<<<<<<< HEAD
 oasi_trend = Image.open("Assets/oasi_trend.png")
 st.text("")
 st.text("")
@@ -106,14 +101,13 @@ st.image(xgb, caption='XGBoost Forecast Results')
 
 
 # plotting_demo()
-=======
 plotting_demo()
 
 
 st.text("")
 
 st.markdown(
-        """
+    """
             Neighborhoods with best Potential from our model:
 
             - Long Beach
@@ -126,4 +120,3 @@ st.markdown(
 )
 
 # show_code(plotting_demo)
->>>>>>> ffe1bd857050f94a4cf9db369fe2fc726b68e120
