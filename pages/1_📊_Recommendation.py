@@ -43,7 +43,7 @@ def recommendation():
     @st.cache_data
     def get_interests():
 
-        return ['Proximity to Social Places', "Proximity to Parks", "Proximity to Hospitals"]
+        return ["Proximity to Social Places", "Proximity to Parks", "Proximity to Hospitals"]
 
     def get_income():
 
