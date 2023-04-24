@@ -2,7 +2,7 @@
 
 Install dependencies:
 ```
-pip install streamlit
+pip install -r requirements.txt
 ```
 
 Run app:

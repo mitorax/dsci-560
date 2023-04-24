@@ -26,16 +26,25 @@ def run():
     st.sidebar.text("©️2023 Data Trojans")
 
     st.write("# Living Recommendation and Trend Prediction within the LA County")
+    st.write("")
 
     st.markdown(
+        """ 
+            Most of the Southern California Counties have shown decreasing population trend recent years, with so called *"California Exodus"* (see graph below).
         """
-            Most of the Southern California Counties have shown decreasing population trend recent years, with so called *"California Exodus"*.
+    )
+    st.markdown(
+        """
             
-            In this web application we want to help you to find what is the best city/neighborhood to live in within in LA county based on your goals and preferences, to make your life easier!
+            
+            This web application aims to help you find what is the best city/neighborhood to live in within LA county based on your goals and preferences to make your life easier and more enjoyable!
 
 
     	"""
     )
+
+    st.write("")
+
     socal_pop = pd.read_csv('final_dataset/socal_pop.csv')
 
     fig = px.line(socal_pop, x='Year', y='Normalized Population',
@@ -71,17 +80,6 @@ def run():
             color="Black"))
     st.plotly_chart(fig, use_container_width=True)
 
-    st.text("")
-
-    st.markdown(
-        """
-            Whether you want to settle in as a young family, work hard and save up money, live a balanced life, this application provides you with the tools to find a place to live that will support you in that lifestyle.
-            
-            Or if you are City officials or looking for inveesting opportunity, you can exploit our application with interactive data exploration tools and check out the deep learning based neighborhood growth forecasting result. 
-        """
-    )
-    st.text("")
-
     st.markdown(
         """
 			### Avaiable features:
@@ -98,6 +96,17 @@ def run():
             **👈 Select an option from the sidebar** to see what you can do!
         """
     )
+
+    st.text("")
+
+    st.markdown(
+        """
+            Whether you want to settle in as a young family, work hard and save up money, live a balanced life, this application provides you with the tools to find a place to live that will support you in that lifestyle.
+            
+            City Officials and Investors can leverage the application using the interactive data exploration tools and the deep learning based neighborhood growth forecasting result to support their decision making. 
+        """
+    )
+    st.text("")
 
     # st.text("")
 

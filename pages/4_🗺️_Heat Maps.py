@@ -169,7 +169,7 @@ def make_map(
     st.plotly_chart(fig, use_container_width=False)
 
 
-st.set_page_config(page_title="Test", page_icon="🗺️")
+st.set_page_config(page_title="Heat Maps", page_icon="🗺️")
 hide_menu_style = """
         <style>
         #MainMenu {visibility: hidden;}
