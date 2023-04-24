@@ -6,12 +6,13 @@ import altair as alt
 from urllib.error import URLError
 
 
-def run_model(selected):
-    st.write("Running recommendation model with interests:")
-    for item in selected:
-        st.write(item)
-
 rec_df=pd.read_csv("final_dataset/rec_df.csv")
+
+def run_model(selected):
+    print(rec_df.head())
+    # st.write("Running recommendation model with interests:")
+    # for item in selected:
+    #     st.write(item)
 
 def recommendation():
     @st.cache_data
@@ -25,7 +26,7 @@ def recommendation():
         interests = get_interests()
         selected = st.multiselect(
             "Choose Preferences 👇️", interests, [
-                "Less Population Density"]
+                "Proximity to Parks"]
         )
         if not selected:
             st.error("Please select at least one preferences.")
