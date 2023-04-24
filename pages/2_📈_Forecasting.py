@@ -44,7 +44,7 @@ st.text("")
 
 st.markdown(
         """
-           $$OASI = {\t{employment rate} \over \t{unemployment rate} * \t{cpi indexes} * \t{crime rate}}$$ 
+           $$OASI = {\t{employment rate} \over \t{unemployment rate} + \t{cpi indexes} + \t{crime rate}}$$ 
         """
 )
 
