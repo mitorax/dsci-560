@@ -8,7 +8,7 @@ from urllib.error import URLError
 
 rec_df=pd.read_csv("final_dataset/rec_df.csv")
 
-def run_model(income_s, selected):
+def run_model(d, income_s, selected):
     if income_s == 'Income (<$60k)':
         low_income_df = rec_df.loc[rec_df['income']<=30000].reset_index(drop=True)
     elif income_s == 'Income (<$100k)':
@@ -26,33 +26,43 @@ def recommendation():
     @st.cache_data
     def get_interests():
 
-        return ['Proximity to Social Places', "Proximity to Parks", "Proximity to Hospitals",
-                'Less Population Density', 'High Population Density']
+        return ['Proximity to Social Places', "Proximity to Parks", "Proximity to Hospitals"]
 
     def get_income():
 
         return ['Income (<$60k)', 'Income (<$100k)',  'Income (>$100k)']
 
+    def get_dense():
+
+        return ['Less Population Density', 'High Population Density']
+
     try:
         interests = get_interests()
         incomes = get_income()
+        density_pre = get_dense()
 
         income_selected = st.multiselect(
             "Choose one Affordability level 👇️", incomes, [
                 "Income (<$60k)"]
         )
         selected = st.multiselect(
-            "Choose Preferences 👇️", interests, [
+            "Choose Neighborhood Preferences, in order 👇️", interests, [
                 "Proximity to Parks"]
+        )
+        density = st.multiselect(
+            "Choose Population Density Preferences 👇️", density_pre, [
+                'Less Population Density']
         )
         if not selected:
             st.error("Please select at least one preferences.")
-        if 'Less Population Density' in selected & 'High Population Density' in selected:
-            st.error("Please select only one density preferences.")
         if not income_selected:
             st.error("Please select at least one Affordability level.")
+        if not density:
+            st.error("Please select at least one Population density level.")
         if len(income_selected) >1:
             st.error("Please select only one Affordability level.")
+        if len(density) >1:
+            st.error("Please select only one Population density level.")
         else:
             st.write("")
             st.write("Running recommendation model with Preferences:")
@@ -60,9 +70,11 @@ def recommendation():
                 st.write(item)
             for item in selected:
                 st.write(item)
+            for item in density:
+                st.write(item)
 
             if st.button("Get Results", type='primary'):
-                run_model(income_selected, selected)
+                run_model(density, income_selected, selected)
 
     except URLError as e:
         st.error(
