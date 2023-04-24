@@ -57,23 +57,41 @@ def census_data():
         )
 
 
+@st.cache_data
+def get_data(filename, index):
+    df = pd.read_csv("final_dataset/" + filename + ".csv")
+    df = df.set_index(index)
+
+    return df
+
+
+def show_table(df, title):
+    st.write("### " + title, df.sort_index())
+    st.write("")
+    st.write("")
+    df = pd.melt(df)
+
+
 st.set_page_config(page_title="Explore Data", page_icon="📊")
 st.markdown("# Explore Data")
+st.write("")
 st.sidebar.header("Explore Data")
 st.sidebar.text("[add descritption]")
 st.write(
     """Select which data you want to look at from the tabs below 👇️"""
 )
+st.write("")
 
-tab1, tab2, tab3, tab4 = st.tabs(
-    ["Census", "Parks & Recreation", "Crime", "Education"])
+tab1, tab2, tab3, tab4, tab5, tab6, tab7 = st.tabs(
+    ["Census", "Parks & Recreation", "Crime", "Education", "Medical Facilities", "Population", "Employment"])
 
+# Census
 with tab1:
     st.write("")
     st.write("")
     census_data()
 
-
+# Parks
 with tab2:
     st.write("")
     st.write("")
@@ -117,10 +135,80 @@ with tab2:
         ))
     st.plotly_chart(fig, use_container_width=True)
 
+    st.write("")
+    st.write("")
+    parks = get_data(filename="park_facilities_la", index="CouncilDistrict")
+    show_table(parks, "LA Parks And Recreational Facilities Data")
 
+# Crime
 with tab3:
-    st.header("Crime")
-    st.image("https://static.streamlit.io/examples/owl.jpg", width=200)
+    st.write("")
+    st.write("")
+    crime_years = st.slider(
+        'Crime Years:', 2010, 2023, (2010, 2023))
 
+    st.write("")
+    st.write("")
+
+    crime_occ = pd.read_csv('final_dataset/LA_crime_occ.csv')
+    if crime_years[0] != 2010 or crime_years[1] != 2023:
+        crime_occ = crime_occ[crime_occ["year"].le(
+            crime_years[1]-1) & crime_occ["year"].ge(crime_years[0])]
+
+    fig = px.line(crime_occ, x='year', y='occurences', markers=True)
+    fig.update_layout(plot_bgcolor='white')
+    fig.update_layout(
+        title={
+            'text': "Los Angeles County Crime occurences trend",
+            'y': 0.99,
+            'x': 0.55,
+            'xanchor': 'center',
+            'yanchor': 'top'},
+        xaxis=dict(
+            showgrid=True,
+            gridwidth=0.5,
+            gridcolor='grey',
+            griddash='dash',
+            mirror=True,
+            ticks='outside',
+            showline=True,
+            tickmode='linear',
+            linecolor='black',
+            linewidth=1),
+        yaxis=dict(
+            mirror=True,
+            ticks='outside',
+            showline=True,
+            linecolor='black',
+            linewidth=1),
+        font=dict(
+            family="Times New Roman",
+            size=15,
+            color="Black"))
+    st.plotly_chart(fig, use_container_width=True)
+
+# Education
 with tab4:
     st.header("Education")
+
+# Hospital
+with tab5:
+    hospitals = get_data("hospital_facility_la", "City")
+    hospitals = hospitals[["Name", "Address", "URL"]]
+    cities = hospitals.index.fillna("Los Angeles")
+    selected_hospitals = st.multiselect(
+        "Filter by City 👇️", sorted(set(cities)))
+    if not selected_hospitals:
+        show_table(hospitals, "LA Medical Centers and Facilities")
+
+    else:
+        hospitals = hospitals.loc[selected_hospitals]
+        show_table(hospitals, "LA Medical Centers and Facilities")
+
+# Population
+with tab6:
+    st.write("Population")
+
+# Employment
+with tab7:
+    st.write("Employment")

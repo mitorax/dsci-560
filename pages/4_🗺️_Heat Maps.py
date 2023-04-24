@@ -14,13 +14,17 @@ fs = s3fs.S3FileSystem(anon=False)
 
 @st.cache_data()
 def get_data_aws(filename, sample_size=None):
-    with fs.open(filename) as f:
-        data = f.read().decode("utf-8")
+    AWS_BUCKET_URL = "http://data-trojans-1.s3-us-west-1.amazonaws.com"
+    df = pd.read_csv(
+        AWS_BUCKET_URL + "/" + filename + ".csv.gz").sample(frac=sample_size, random_state=1)
+    return df
+    # with fs.open(filename) as f:
+    #     data = f.read().decode("utf-8")
 
-        data = io.StringIO(data)
+    #     data = io.StringIO(data)
 
-        df = pd.read_csv(data).sample(frac=sample_size, random_state=1)
-        return df
+    #     df = pd.read_csv(data).sample(frac=sample_size, random_state=1)
+    #     return df
 
 
 @st.cache_data
@@ -78,7 +82,15 @@ def make_map(
             marker=go.scattermapbox.Marker(
                 size=parks_size,
                 color='rgba(99,110,250,' + str(parks_alpha) + ')'
-            )
+            ),
+            hovertext=park['LocationType'],
+            hovertemplate="<br>".join([
+                "Lat: %{lat}",
+                "Long: %{lon}",
+                "Type: %{hovertext}",
+
+            ])
+
         )
 
     if "Crime" in selected_data:
@@ -90,7 +102,14 @@ def make_map(
             marker=go.scattermapbox.Marker(
                 size=crime_size,
                 color='rgba(239,85,59,' + str(crime_alpha) + ')'
-            )
+            ),
+            hovertext=cs['Crm Cd Desc'],
+            hovertemplate="<br>".join([
+                "Lat: %{lat}",
+                "Long: %{lon}",
+                "Crime: %{hovertext}",
+
+            ])
         )
 
     if "Hospitals" in selected_data:
@@ -102,7 +121,13 @@ def make_map(
             marker=go.scattermapbox.Marker(
                 size=hospitals_marker_size,
                 color='rgba(0,204,150,' + str(hospitals_marker_alpha) + ")"
-            )
+            ),
+            hovertext=hospital_la['Name'],
+            hovertemplate="<br>".join([
+                "Lat: %{lat}",
+                "Long: %{lon}",
+                "Name: %{hovertext}",
+            ])
         )
 
     if "Social Places" in selected_data:
@@ -114,7 +139,14 @@ def make_map(
             marker=go.scattermapbox.Marker(
                 size=social_marker_size,
                 color='rgba(255,255,0,' + str(social_marker_alpha) + ")"
-            )
+            ),
+            hovertext=la_places['name'],
+            hovertemplate="<br>".join([
+                "Lat: %{lat}",
+                "Long: %{lon}",
+                "Name: %{hovertext}",
+
+            ])
         )
 
     fig.update_layout(
@@ -145,12 +177,12 @@ st.sidebar.header("Heat Maps")
 mapbox_access_token = "pk.eyJ1IjoibWFwYm94c2VvIiwiYSI6ImNsZHo0ejU0dzBxMHAzb292Ym41Yzk4bzMifQ.ZYVGCdm8E2kH2QGi2gd9ng"
 park = get_data("final_dataset/park_facilities_la.csv")
 # cs = get_data("Datasets_Big/crime_all.csv", sample=True, sample_size=0.04)
-cs = get_data_aws('data-trojans/crime_all.csv', sample_size=0.04)
+cs = get_data_aws('crime_all', sample_size=0.04)
 cs_sample = cs
 hospital_la = get_data('final_dataset/hospital_facility_la.csv')
 # la_places = get_data("Datasets_Big/LA_places_cleaned.csv",
 #                      sample=True, sample_size=0.1)
-la_places = get_data_aws('data-trojans/LA_places_cleaned.csv', sample_size=0.1)
+la_places = get_data_aws('LA_places_cleaned', sample_size=0.1)
 
 neighborhoods = gpd.read_file(
     'final_dataset/l.a. county neighborhood (current).shp')
