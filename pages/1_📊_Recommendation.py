@@ -9,7 +9,7 @@ from urllib.error import URLError
 rec_df=pd.read_csv("final_dataset/rec_df.csv")
 
 def run_model(selected):
-    print(rec_df.head())
+    st.dataframe(rec_df.head())
     # st.write("Running recommendation model with interests:")
     # for item in selected:
     #     st.write(item)
