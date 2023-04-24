@@ -5,6 +5,26 @@ import pandas as pd
 import plotly.graph_objects as go
 import plotly.express as px
 import geopandas as gpd
+import s3fs
+import io
+
+
+fs = s3fs.S3FileSystem(anon=False)
+
+
+@st.cache_data()
+def get_data_aws(filename, sample_size=None):
+    AWS_BUCKET_URL = "http://data-trojans-1.s3-us-west-1.amazonaws.com"
+    df = pd.read_csv(
+        AWS_BUCKET_URL + "/" + filename + ".csv.gz").sample(frac=sample_size, random_state=1)
+    return df
+    # with fs.open(filename) as f:
+    #     data = f.read().decode("utf-8")
+
+    #     data = io.StringIO(data)
+
+    #     df = pd.read_csv(data).sample(frac=sample_size, random_state=1)
+    #     return df
 
 
 @st.cache_data
@@ -33,8 +53,6 @@ def make_map(
     selected_neighb
 ):
 
-    # print(selected_data)
-
     if crime_years[0] != 2010 or crime_years[1] != 2023:
         cs['DATE OCC'] = pd.to_datetime(cs['DATE OCC'])
         cs = cs[cs["DATE OCC"].dt.year.le(
@@ -42,15 +60,12 @@ def make_map(
     else:
         cs = cs_sample
 
-    # print(cs.shape[0])
-
     if len(selected_neighb):
         neighb = neighborhoods.loc[neighborhoods['name'] == selected_neighb[0]]
         fig = px.choropleth_mapbox(
             neighb,
             geojson=neighb.geometry,
             locations=neighb.index,
-            # color_continuous_scale="Teal",
             color='name',
             color_discrete_map={selected_neighb[0]: 'rgba(179,205,227,0.5)'},
             mapbox_style="carto-positron",
@@ -67,7 +82,15 @@ def make_map(
             marker=go.scattermapbox.Marker(
                 size=parks_size,
                 color='rgba(99,110,250,' + str(parks_alpha) + ')'
-            )
+            ),
+            hovertext=park['LocationType'],
+            hovertemplate="<br>".join([
+                "Lat: %{lat}",
+                "Long: %{lon}",
+                "Type: %{hovertext}",
+
+            ])
+
         )
 
     if "Crime" in selected_data:
@@ -79,7 +102,14 @@ def make_map(
             marker=go.scattermapbox.Marker(
                 size=crime_size,
                 color='rgba(239,85,59,' + str(crime_alpha) + ')'
-            )
+            ),
+            hovertext=cs['Crm Cd Desc'],
+            hovertemplate="<br>".join([
+                "Lat: %{lat}",
+                "Long: %{lon}",
+                "Crime: %{hovertext}",
+
+            ])
         )
 
     if "Hospitals" in selected_data:
@@ -91,7 +121,13 @@ def make_map(
             marker=go.scattermapbox.Marker(
                 size=hospitals_marker_size,
                 color='rgba(0,204,150,' + str(hospitals_marker_alpha) + ")"
-            )
+            ),
+            hovertext=hospital_la['Name'],
+            hovertemplate="<br>".join([
+                "Lat: %{lat}",
+                "Long: %{lon}",
+                "Name: %{hovertext}",
+            ])
         )
 
     if "Social Places" in selected_data:
@@ -103,7 +139,14 @@ def make_map(
             marker=go.scattermapbox.Marker(
                 size=social_marker_size,
                 color='rgba(255,255,0,' + str(social_marker_alpha) + ")"
-            )
+            ),
+            hovertext=la_places['name'],
+            hovertemplate="<br>".join([
+                "Lat: %{lat}",
+                "Long: %{lon}",
+                "Name: %{hovertext}",
+
+            ])
         )
 
     fig.update_layout(
@@ -132,21 +175,17 @@ st.sidebar.header("Heat Maps")
 
 
 mapbox_access_token = "pk.eyJ1IjoibWFwYm94c2VvIiwiYSI6ImNsZHo0ejU0dzBxMHAzb292Ym41Yzk4bzMifQ.ZYVGCdm8E2kH2QGi2gd9ng"
-park = get_data("Datasets_raw/park_facilities_la.csv")
-cs = get_data("Datasets_raw/crime_all.csv", sample=True, sample_size=0.04)
+park = get_data("final_dataset/park_facilities_la.csv")
+# cs = get_data("Datasets_Big/crime_all.csv", sample=True, sample_size=0.04)
+cs = get_data_aws('crime_all', sample_size=0.04)
 cs_sample = cs
-hospital_la = get_data('Datasets_raw/hospital_facility_la.csv')
-la_places = get_data("Datasets_raw/LA_places_cleaned.csv",
-                     sample=True, sample_size=0.1)
+hospital_la = get_data('final_dataset/hospital_facility_la.csv')
+# la_places = get_data("Datasets_Big/LA_places_cleaned.csv",
+#                      sample=True, sample_size=0.1)
+la_places = get_data_aws('LA_places_cleaned', sample_size=0.1)
 
 neighborhoods = gpd.read_file(
-    'Datasets_raw/l.a. county neighborhood (current).shp')
-
-
-# neighborhood_names = []
-# for name in neighborhoods['slug']:
-#     name = name.replace('-', ' ')
-#     neighborhood_names.append(name.title())
+    'final_dataset/l.a. county neighborhood (current).shp')
 
 
 selected_data = st.multiselect(
@@ -273,12 +312,8 @@ if "Parks" in selected_data:
 if "Crime" in selected_data:
     crime_occ = pd.read_csv('final_dataset/LA_crime_occ.csv')
     if crime_years[0] != 2010 or crime_years[1] != 2023:
-        # crime_occ['year'] = pd.to_datetime(crime_occ['year'])
         crime_occ = crime_occ[crime_occ["year"].le(
             crime_years[1]-1) & crime_occ["year"].ge(crime_years[0])]
-        # crime_occ = crime_occ[(crime_occ.year >=
-        #   crime_years[0]) & (crime_occ.year < crime_years[1])]
-        print(crime_occ)
 
     fig = px.line(crime_occ, x='year', y='occurences', markers=True)
     fig.update_layout(plot_bgcolor='white')
