@@ -83,6 +83,9 @@ def recommendation():
         else:
             st.write("")
             st.write("Running recommendation model with Preferences:")
+            st.write(type(income_selected))
+            st.write(type(selected))
+            st.write(type(density))
             for item in income_selected:
                 st.write(item)
             for item in selected:
