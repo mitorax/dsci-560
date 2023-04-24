@@ -24,8 +24,8 @@ def select_income(income_s):
     if income_s == 'Income (<$60k)':
         income_df = rec_df.loc[rec_df['income']<=30000].reset_index(drop=True)
     elif income_s == 'Income (<$100k)':
-        income_df = rec_df.loc[rec_df['income']>30000].reset_index(drop=True)
-        income_df = income_df.loc[income_df['income']<=45000].reset_index(drop=True)
+        x = rec_df.loc[rec_df['income']>30000].reset_index(drop=True)
+        income_df = x.loc[x['income']<=45000].reset_index(drop=True)
     elif income_s == 'Income (>$100k)':
         income_df = rec_df.loc[rec_df['income']>45000].reset_index(drop=True)
 
