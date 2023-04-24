@@ -1,13 +1,13 @@
 import streamlit as st
 import time
 import numpy as np
+from utils import show_code
 
 
 def plotting_demo():
     progress_bar = st.sidebar.progress(0)
     status_text = st.sidebar.empty()
     last_rows = np.random.randn(1, 1)
-
     chart = st.line_chart(last_rows)
 
     for i in range(1, 101):
@@ -23,7 +23,7 @@ def plotting_demo():
     # Streamlit widgets automatically run the script from top to bottom. Since
     # this button is not connected to any other logic, it just causes a plain
     # rerun.
-    # st.button("Re-run")
+    st.button("Re-run")
 
 
 st.set_page_config(page_title="Forecasting", page_icon="📈")
@@ -43,7 +43,7 @@ st.write(
 st.text("")
 
 st.markdown(
-    """
+        """
            $$OASI = {\t{employment rate} \over \t{unemployment rate} + \t{cpi indexes} + \t{crime rate}}$$ 
         """
 )
@@ -51,7 +51,7 @@ st.markdown(
 st.text("")
 
 st.markdown(
-    """
+        """
             As it is challenging to get specific economic indicator datasets for neighborhood level, we will build a time series model to project
             county-levle growth trend using:
 
@@ -71,3 +71,23 @@ st.markdown(
 )
 
 plotting_demo()
+
+
+t.text("")
+
+st.markdown(
+        """
+            Neighborhoods with best Potential from our model:
+
+            - Long Beach
+            - Pasadena
+            - Santa Clarita
+            - Torrance
+            - Glendale
+            ...
+
+
+        """
+)
+
+# show_code(plotting_demo)
