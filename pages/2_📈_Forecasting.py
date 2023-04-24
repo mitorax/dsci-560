@@ -44,8 +44,18 @@ st.write(
     Normally, when referring to city growth, it only projects population growth.
     However, in order to consider multiple aspects of the city, we propose an index that will effectively project city's growth trend that takes `Opportunity`, `Affordability`, and `Safety` into account.
     
+    """
+)
+st.text("")
+
+oasi_components = Image.open('Assets/oasi_components_trend.png')
+st.text("")
+st.text("")
+st.image(oasi_components, caption='OASI Component Trend')
+
+st.write(
+    """
     We will define this index as OASI(Opportunity, Affordability, Safety Index).
-    
     """
 )
 st.text("")
@@ -55,6 +65,11 @@ st.markdown(
            $$OASI = {\t{employment rate} \over \t{unemployment rate} + \t{cpi indexes} + \t{crime rate}}$$ 
         """
 )
+
+oasi_trend = Image.open("Assets/oasi_trend.png")
+st.text("")
+st.text("")
+st.image(oasi_trend, caption='OASI Trend')
 
 st.text("")
 
@@ -68,6 +83,17 @@ st.markdown(
             - Crime dataset
             - Population dataset
 
+        """
+)
+
+xgb = Image.open("Assets/xgboost_forecast.png")
+st.text("")
+st.text("")
+st.image(xgb, caption='XGBoost Forecast Results')
+
+
+st.markdown(
+    """
             Then, using this model we will approximate the city/neighborhood-level growth trend using neighborhood specific datsets, such as:
 
             - Housing price trend
@@ -75,28 +101,16 @@ st.markdown(
             - Census data
             - And more...
 
+            Finally, we add explainability of how we derived the neighborhood OASI forecasting result:
         """
 )
 
-oasi_trend = Image.open("Assets/oasi_trend.png")
-st.text("")
-st.text("")
-st.image(oasi_trend, caption='OASI Trend')
-
-oasi_components = Image.open('Assets/oasi_components_trend.png')
-st.text("")
-st.text("")
-st.image(oasi_components, caption='OASI Component Trend')
 
 shap = Image.open("Assets/shap.png")
 st.text("")
 st.text("")
 st.image(shap)
 
-xgb = Image.open("Assets/xgboost_forecast.png")
-st.text("")
-st.text("")
-st.image(xgb, caption='XGBoost Forecast Results')
 
 
 # plotting_demo()
