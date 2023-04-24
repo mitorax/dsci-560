@@ -189,25 +189,151 @@ with tab3:
 
 # Education
 with tab4:
-    st.header("Education")
+    lalban_edu = pd.read_csv('final_dataset/LA_LB_AN_edu.csv')
+    st.write("")
+    st.write("")
+    st.write("")
+    fig = px.line(lalban_edu, x='year', y='value',
+                  color='variable', markers=True)
+    fig.update_layout(plot_bgcolor='white')
+    fig.update_layout(
+        title={
+            'text': "Los Angeles-Long Beach-Anaheim Metro Area Education Statistics",
+            'y': 0.99,
+            'x': 0.38,
+            'xanchor': 'center',
+            'yanchor': 'top'},
+        xaxis=dict(
+            showgrid=True,
+            gridwidth=0.5,
+            gridcolor='grey',
+            griddash='dash',
+            mirror=True,
+            ticks='outside',
+            showline=True,
+            tickmode='linear',
+            linecolor='black',
+            linewidth=1),
+        yaxis=dict(
+            mirror=True,
+            ticks='outside',
+            showline=True,
+            linecolor='black',
+            linewidth=1),
+        font=dict(
+            family="Times New Roman",
+            size=15,
+            color="Black"))
+    st.plotly_chart(fig, use_container_width=True)
+
 
 # Hospital
 with tab5:
     hospitals = get_data("hospital_facility_la", "City")
     hospitals = hospitals[["Name", "Address", "URL"]]
     cities = hospitals.index.fillna("Los Angeles")
+    st.write("")
+    st.write("")
     selected_hospitals = st.multiselect(
         "Filter by City 👇️", sorted(set(cities)))
     if not selected_hospitals:
+        st.write("")
+        st.write("")
+
         show_table(hospitals, "LA Medical Centers and Facilities")
 
     else:
         hospitals = hospitals.loc[selected_hospitals]
+        st.write("")
+        st.write("")
+
         show_table(hospitals, "LA Medical Centers and Facilities")
 
 # Population
 with tab6:
-    st.write("Population")
+    la_pop_race = pd.read_csv('final_dataset/la_pop_race_2021.csv')
+    top20_la_pop = la_pop_race.sort_values(
+        by=['Total Population'], ascending=False).reset_index(drop=True).iloc[1:21]
+
+    st.write("")
+
+    fig = px.bar(top20_la_pop, x="Neighborhood", y="Total Population")
+    fig.update_traces(marker_line=dict(width=2, color='black'))
+    fig.update_layout(paper_bgcolor="white",
+                      plot_bgcolor='white')
+    fig.update_xaxes(tickangle=-75)
+    fig.update_layout(
+        width=800,
+        height=800,
+        title={
+            'text': 'Top 20 Neighborhood Population in LA County',
+            'y': 0.99,
+            'x': 0.5,
+            'xanchor': 'center',
+            'yanchor': 'top'},
+        showlegend=False,
+        xaxis=dict(
+            mirror=True,
+            ticks='outside',
+            title=None,
+            showline=True,
+            linecolor='black',
+            linewidth=2),
+        yaxis=dict(
+            mirror=True,
+            ticks='outside',
+            showline=True,
+            linecolor='black',
+            title='Population',
+            linewidth=2),
+        font=dict(
+            family="Times New Roman",
+            size=15,
+            color="Black"
+        ))
+    st.plotly_chart(fig, use_container_width=True)
+
+    st.write("")
+
+    la_pop_dense = pd.read_csv('final_dataset/la_population_dense_2000.csv')
+    top20_la_pop_dense = la_pop_dense.iloc[:20]
+
+    fig = px.bar(top20_la_pop_dense, x="NEIGHBORHOOD", y="POPULATION PER SQMI")
+    fig.update_traces(marker_line=dict(width=2, color='black'))
+    fig.update_layout(paper_bgcolor="white",
+                      plot_bgcolor='white')
+    fig.update_xaxes(tickangle=-75)
+    fig.update_layout(
+        width=800,
+        height=800,
+        title={
+            'text': 'Top 20 Most dense Neighborhood in LA County',
+            'y': 0.99,
+            'x': 0.5,
+            'xanchor': 'center',
+            'yanchor': 'top'},
+        showlegend=False,
+        xaxis=dict(
+            mirror=True,
+            ticks='outside',
+            title=None,
+            showline=True,
+            linecolor='black',
+            linewidth=2),
+        yaxis=dict(
+            mirror=True,
+            ticks='outside',
+            showline=True,
+            linecolor='black',
+            title='Population per sqm',
+            linewidth=2),
+        font=dict(
+            family="Times New Roman",
+            size=15,
+            color="Black"
+        ))
+    st.plotly_chart(fig, use_container_width=True)
+
 
 # Employment
 with tab7:
