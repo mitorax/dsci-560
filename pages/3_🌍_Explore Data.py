@@ -52,6 +52,13 @@ def show_table(df, title):
 
 
 st.set_page_config(page_title="Explore Data", page_icon="📊")
+hide_menu_style = """
+        <style>
+        #MainMenu {visibility: hidden;}
+        </style>
+        """
+st.markdown(hide_menu_style, unsafe_allow_html=True)
+
 st.markdown("# Explore Data")
 st.write("")
 st.sidebar.header("Explore Data")

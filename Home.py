@@ -13,6 +13,13 @@ def run():
         page_title="LA neighborhood Recommender",
         page_icon="🏠️",
     )
+
+    hide_menu_style = """
+        <style>
+        #MainMenu {visibility: hidden;}
+        </style>
+        """
+    st.markdown(hide_menu_style, unsafe_allow_html=True)
     st.sidebar.text("")
     st.sidebar.success("👆️ Select an option above")
     st.sidebar.text("")
@@ -31,16 +38,17 @@ def run():
     )
     socal_pop = pd.read_csv('final_dataset/socal_pop.csv')
 
-    fig = px.line(socal_pop, x='Year', y='Normalized Population', color='County', hover_data=['Population'], markers=True)
+    fig = px.line(socal_pop, x='Year', y='Normalized Population',
+                  color='County', hover_data=['Population'], markers=True)
     fig.update_layout(plot_bgcolor='white')
     fig.update_layout(
         title={
             'text': "Southern California County Population Trend",
-            'y':0.95,
-            'x':0.445,
+            'y': 0.95,
+            'x': 0.445,
             'xanchor': 'center',
             'yanchor': 'top'},
-        xaxis = dict(
+        xaxis=dict(
             showgrid=True,
             gridwidth=0.5,
             gridcolor='grey',
@@ -51,7 +59,7 @@ def run():
             tickmode='linear',
             linecolor='black',
             linewidth=1),
-        yaxis = dict(
+        yaxis=dict(
             mirror=True,
             ticks='outside',
             showline=True,
@@ -62,7 +70,6 @@ def run():
             size=15,
             color="Black"))
     st.plotly_chart(fig, use_container_width=True)
-
 
     st.text("")
 
@@ -91,8 +98,6 @@ def run():
             **👈 Select an option from the sidebar** to see what you can do!
         """
     )
-
-    
 
     # st.text("")
 
