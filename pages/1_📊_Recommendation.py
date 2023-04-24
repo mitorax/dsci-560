@@ -8,19 +8,36 @@ from urllib.error import URLError
 
 rec_df=pd.read_csv("final_dataset/rec_df.csv")
 
+
 def run_model(d, income_s, selected):
-    if income_s == 'Income (<$60k)':
-        low_income_df = rec_df.loc[rec_df['income']<=30000].reset_index(drop=True)
-    elif income_s == 'Income (<$100k)':
-        mid_income_df = rec_df.loc[rec_df['income']<=50000].reset_index(drop=True)
-    elif income_s == 'Income (>$100k)':
-        high_income_df = rec_df.loc[rec_df['income']>50000].reset_index(drop=True)
+    df= select_income(income_s)
+    df= select_income(d,df)
     
+    df = df.sort_values(by=selected, ascending=False)
     
-    st.dataframe(rec_df.head())
+    st.dataframe(df)
     # st.write("Running recommendation model with interests:")
     # for item in selected:
     #     st.write(item)
+
+def select_income(income_s):
+    if income_s == 'Income (<$60k)':
+        income_df = rec_df.loc[rec_df['income']<=30000].reset_index(drop=True)
+    elif income_s == 'Income (<$100k)':
+        income_df = rec_df.loc[rec_df['income']>30000].reset_index(drop=True)
+        income_df = income_df.loc[income_df['income']<=45000].reset_index(drop=True)
+    elif income_s == 'Income (>$100k)':
+        income_df = rec_df.loc[rec_df['income']>45000].reset_index(drop=True)
+
+    return income_df
+
+def select_density(density_s,dff):
+    if density_s == 'Income (<$60k)':
+        density_df = dff.loc[dff['Population Density score']<0.3].reset_index(drop=True)
+    elif density_s == 'Income (<$100k)':
+        density_df = dff.loc[dff['Population Density score']>=0.3].reset_index(drop=True)
+
+    return density_df
 
 def recommendation():
     @st.cache_data
