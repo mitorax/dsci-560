@@ -25,10 +25,10 @@ def recommendation():
         interests = get_interests()
         selected = st.multiselect(
             "Choose Preferences 👇️", interests, [
-                "Less Population "]
+                "Less Population Density"]
         )
         if not selected:
-            st.error("Please select at least one interest.")
+            st.error("Please select at least one preferences.")
         else:
             st.write("")
             st.write("Running recommendation model with Preferences:")
