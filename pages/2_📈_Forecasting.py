@@ -73,7 +73,7 @@ st.markdown(
 plotting_demo()
 
 
-t.text("")
+st.text("")
 
 st.markdown(
         """
@@ -84,9 +84,7 @@ st.markdown(
             - Santa Clarita
             - Torrance
             - Glendale
-            ...
-
-
+            - ...
         """
 )
 
