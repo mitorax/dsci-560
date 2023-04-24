@@ -130,4 +130,35 @@ st.markdown(
         """
 )
 
+
+st.markdown(
+    """
+            Examples of Neighborhood level forecasting:
+            
+        """
+)
+
+st.markdown(
+    """
+            - Good potential: Long Beach
+        """
+)
+
+lb = Image.open("final_dataset/longbeach.png")
+st.text("")
+st.text("")
+st.image(lb)
+
+st.markdown(
+    """
+            - Bad potential: Hollywood
+        """
+)
+
+hw = Image.open("final_dataset/hollywood.png")
+st.text("")
+st.text("")
+st.image(hw)
+
+
 # show_code(plotting_demo)
