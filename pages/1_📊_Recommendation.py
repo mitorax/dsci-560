@@ -11,7 +11,7 @@ rec_df=pd.read_csv("final_dataset/rec_df.csv")
 
 def run_model(dense, income_s, selected):
     df= select_income(income_s[0])
-    df= select_income(dense[0],df)
+    df= select_density(dense[0],df)
     
     df = df.sort_values(by=selected, ascending=False)
     
