@@ -96,10 +96,9 @@ st.markdown(
     """
             Then, using this model we will approximate the city/neighborhood-level growth trend using neighborhood specific datsets, such as:
 
-            - Housing price trend
+            - Income per capita
             - Proximity to Hospitals/Parks/Social places
-            - Census data
-            - And more...
+            - Population density data
 
             Finally, we add explainability of how we derived the neighborhood OASI forecasting result:
         """
