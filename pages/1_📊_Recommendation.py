@@ -9,6 +9,13 @@ from urllib.error import URLError
 rec_df=pd.read_csv("final_dataset/rec_df.csv")
 
 def run_model(income_s, selected):
+    if income_s == 'Income (<$60k)':
+        low_income_df = rec_df.loc[rec_df['income']<=30000].reset_index(drop=True)
+    elif income_s == 'Income (<$100k)':
+        mid_income_df = rec_df.loc[rec_df['income']<=50000].reset_index(drop=True)
+    elif income_s == 'Income (>$100k)':
+        high_income_df = rec_df.loc[rec_df['income']>50000].reset_index(drop=True)
+    
     
     st.dataframe(rec_df.head())
     # st.write("Running recommendation model with interests:")
@@ -40,6 +47,8 @@ def recommendation():
         )
         if not selected:
             st.error("Please select at least one preferences.")
+        if 'Less Population Density' in selected & 'High Population Density' in selected:
+            st.error("Please select only one density preferences.")
         if not income_selected:
             st.error("Please select at least one Affordability level.")
         if len(income_selected) >1:
