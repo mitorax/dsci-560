@@ -23,7 +23,6 @@ def plotting_demo():
     # Streamlit widgets automatically run the script from top to bottom. Since
     # this button is not connected to any other logic, it just causes a plain
     # rerun.
-    st.button("Re-run")
 
 
 st.set_page_config(page_title="Forecasting", page_icon="📈")
@@ -101,7 +100,6 @@ st.image(xgb, caption='XGBoost Forecast Results')
 
 
 # plotting_demo()
-plotting_demo()
 
 
 st.text("")
