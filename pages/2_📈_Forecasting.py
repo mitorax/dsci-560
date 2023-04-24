@@ -53,6 +53,10 @@ st.text("")
 st.text("")
 st.image(oasi_components, caption='OASI Component Trend')
 
+st.write("")
+st.markdown("#### How our Growth Index works")
+st.write("")
+
 st.write(
     """
     We will define this index as OASI(Opportunity, Affordability, Safety Index).
@@ -91,7 +95,7 @@ st.text("")
 st.text("")
 st.image(xgb, caption='XGBoost Forecast Results')
 
-
+st.write("")
 st.markdown(
     """
             Then, using this model we will approximate the city/neighborhood-level growth trend using neighborhood specific datsets, such as:
@@ -111,49 +115,46 @@ st.text("")
 st.image(shap)
 
 
-
 # plotting_demo()
 
 
 st.text("")
 
+st.markdown("#### Neighborhoods with best Potential from our model")
+
 st.markdown(
     """
-            Neighborhoods with best Potential from our model:
-
             - Long Beach
             - Pasadena
             - Santa Clarita
             - Torrance
             - Glendale
-            - ...
-        """
-)
-
-
-st.markdown(
     """
-            Examples of Neighborhood level forecasting:
-            
-        """
 )
 
-st.markdown(
-    """
-            - Good potential: Long Beach
-        """
-)
+
+st.markdown("#### Examples of Neighborhood level forecasting")
+
+
+st.success('Good potential: Long Beach!', icon="✅")
+# st.markdown(
+#     """
+#             - Good potential: Long Beach
+#         """
+# )
 
 lb = Image.open("final_dataset/longbeach.png")
 st.text("")
 st.text("")
 st.image(lb)
 
-st.markdown(
-    """
-            - Bad potential: Hollywood
-        """
-)
+
+st.error('Bad potential: Hollywood', icon="🚨")
+# st.markdown(
+#     """
+#             - Bad potential: Hollywood
+#         """
+# )
 
 hw = Image.open("final_dataset/hollywood.png")
 st.text("")

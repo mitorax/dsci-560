@@ -61,8 +61,8 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 st.markdown("# Explore Data")
 st.write("")
-st.sidebar.header("Explore Data")
-st.sidebar.text("[add descritption]")
+# st.sidebar.header("Explore Data")
+# st.sidebar.text("[add descritption]")
 st.write(
     """Select which data you want to look at from the tabs below 👇️"""
 )
