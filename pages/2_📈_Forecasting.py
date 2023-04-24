@@ -1,7 +1,11 @@
 import streamlit as st
 import time
 import numpy as np
+<<<<<<< HEAD
+from PIL import Image
+=======
 from utils import show_code
+>>>>>>> ffe1bd857050f94a4cf9db369fe2fc726b68e120
 
 
 def plotting_demo():
@@ -27,8 +31,17 @@ def plotting_demo():
 
 
 st.set_page_config(page_title="Forecasting", page_icon="📈")
+hide_menu_style = """
+        <style>
+        #MainMenu {visibility: hidden;}
+        </style>
+        """
+st.markdown(hide_menu_style, unsafe_allow_html=True)
+
 st.markdown("# Forecasting")
-st.sidebar.header("Forecasting")
+st.write("")
+# st.sidebar.header("Forecasting")
+
 st.write(
     """
     In this page, we show both the county-level and city/neighborhood growth forecasting result in LA county.
@@ -70,6 +83,30 @@ st.markdown(
         """
 )
 
+<<<<<<< HEAD
+oasi_trend = Image.open("Assets/oasi_trend.png")
+st.text("")
+st.text("")
+st.image(oasi_trend, caption='OASI Trend')
+
+oasi_components = Image.open('Assets/oasi_components_trend.png')
+st.text("")
+st.text("")
+st.image(oasi_components, caption='OASI Component Trend')
+
+shap = Image.open("Assets/shap.png")
+st.text("")
+st.text("")
+st.image(shap)
+
+xgb = Image.open("Assets/xgboost_forecast.png")
+st.text("")
+st.text("")
+st.image(xgb, caption='XGBoost Forecast Results')
+
+
+# plotting_demo()
+=======
 plotting_demo()
 
 
@@ -89,3 +126,4 @@ st.markdown(
 )
 
 # show_code(plotting_demo)
+>>>>>>> ffe1bd857050f94a4cf9db369fe2fc726b68e120
