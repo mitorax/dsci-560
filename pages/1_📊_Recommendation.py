@@ -13,7 +13,7 @@ def run_model(dense, income_s, selected):
     df= select_income(income_s[0])
     df= select_density(dense[0],df)
     
-    df = df.sort_values(by=selected[0], ascending=False)
+    df = df.sort_values(by=selected, ascending=False)
     df=df.drop(columns=['income'])
     st.dataframe(df)
     # st.write("Running recommendation model with interests:")
