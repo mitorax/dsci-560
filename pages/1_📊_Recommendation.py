@@ -11,29 +11,32 @@ def run_model(selected):
     for item in selected:
         st.write(item)
 
+rec_df=pd.read_csv("final_dataset/rec_df.csv")
 
 def recommendation():
     @st.cache_data
     def get_interests():
 
-        return ['Interest1', "Interest2", "Interest3"]
+        return ['Income (<$60k)', 'Income (<$100k)',  'Income (>$100k)',
+                'Proximity to Social Places', "Proximity to Parks", "Proximity to Hospitals",
+                'Less Population Density', 'High Population Density']
 
     try:
         interests = get_interests()
         selected = st.multiselect(
-            "Choose interests 👇️", interests, [
-                "Interest1"]
+            "Choose Preferences 👇️", interests, [
+                "Less Population "]
         )
         if not selected:
             st.error("Please select at least one interest.")
         else:
             st.write("")
-            st.write("Running recommendation model with interests:")
+            st.write("Running recommendation model with Preferences:")
             for item in selected:
                 st.write(item)
 
-            # if st.button("Get Results", type='primary'):
-            #     run_model(selected)
+            if st.button("Get Results", type='primary'):
+                run_model(selected)
 
     except URLError as e:
         st.error(
