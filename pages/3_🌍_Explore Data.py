@@ -1,8 +1,6 @@
 import streamlit as st
 import pandas as pd
-import altair as alt
 import plotly.express as px
-import matplotlib.pyplot as plt
 
 from urllib.error import URLError
 
@@ -10,8 +8,6 @@ from urllib.error import URLError
 def census_data():
     @st.cache_data
     def get_census_data():
-        # AWS_BUCKET_URL = "http://streamlit-demo-data.s3-us-west-2.amazonaws.com"
-        # df = pd.read_csv(AWS_BUCKET_URL + "/agri.csv.gz")
         df = pd.read_csv("final_dataset/acs2017_county_data.csv")
         df = df.loc[df['State'] == 'California'].reset_index(drop=True)
         return df.set_index("County")
@@ -26,27 +22,10 @@ def census_data():
             st.error("Please select at least one county.")
         else:
             data = df.loc[selected]
-            # data /= 1000000.0
             st.write("### Census County Data 2017",
                      data.sort_index())
 
             data = pd.melt(data)
-
-            # data = data.T.reset_index()
-            # data = pd.melt(data, id_vars=["index"]).rename(
-            #     columns={"index": "year",
-            #              "value": "Gross Agricultural Product ($B)"}
-            # )
-            # chart = (
-            #     alt.Chart(data)
-            #     .mark_area(opacity=0.3)
-            #     .encode(
-            #         x="year:T",
-            #         y=alt.Y("Gross Agricultural Product ($B):Q", stack=None),
-            #         color="Region:N",
-            #     )
-            # )
-            # st.altair_chart(chart, use_container_width=True)
 
     except URLError as e:
         st.error(
@@ -337,4 +316,58 @@ with tab6:
 
 # Employment
 with tab7:
-    st.write("Employment")
+    la_employ = pd.read_csv('final_dataset/employment_la_processed.csv')
+
+    unemploy_test = la_employ[['date', 'Unemployment Rate']].set_index('date')
+
+    employ_test = la_employ[[
+        'date', 'Employment Rate']].set_index('date')
+
+    st.write("")
+    st.write("")
+
+    employ_test = la_employ.groupby(['Year']).mean(numeric_only=True)
+    employ_test.reset_index(inplace=True)
+
+    st.write("")
+    employment_years = st.slider(
+        'Employment Years:', 2013, 2023, (2013, 2023))
+
+    st.write("")
+
+    if employment_years[0] != 2013 or employment_years[1] != 2023:
+        employ_test = employ_test[employ_test["Year"].le(
+            employment_years[1]) & employ_test["Year"].ge(employment_years[0])]
+
+    fig = px.line(employ_test, x='Year', y='Employment Rate', markers=True)
+    fig.update_layout(plot_bgcolor='white')
+    fig.update_layout(
+        title={
+            'text': "LA County Employment Rate Trend",
+            'y': 0.99,
+            'x': 0.5,
+            'xanchor': 'center',
+            'yanchor': 'top'},
+        xaxis=dict(
+            showgrid=True,
+            gridwidth=0.5,
+            gridcolor='grey',
+            griddash='dash',
+            mirror=True,
+            ticks='outside',
+            showline=True,
+            tickmode='linear',
+            linecolor='black',
+            linewidth=1),
+        yaxis=dict(
+            mirror=True,
+            ticks='outside',
+            showline=True,
+            linecolor='black',
+            linewidth=1),
+        font=dict(
+            family="Times New Roman",
+            size=18,
+            color="Black"))
+
+    st.plotly_chart(fig, use_container_width=True)
