@@ -103,6 +103,13 @@ def recommendation():
 
 
 st.set_page_config(page_title="Recommendation", page_icon="📊")
+hide_menu_style = """
+        <style>
+        #MainMenu {visibility: hidden;}
+        </style>
+        """
+st.markdown(hide_menu_style, unsafe_allow_html=True)
+
 st.markdown("# Recommendation")
 # st.sidebar.header("Recommendation")
 # st.sidebar.text("[add descritption]")
