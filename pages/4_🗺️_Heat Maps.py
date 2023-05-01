@@ -14,7 +14,7 @@ fs = s3fs.S3FileSystem(anon=False)
 
 @st.cache_data()
 def get_data_aws(filename, sample_size=None):
-    AWS_BUCKET_URL = "http://data-trojans-1.s3-us-west-1.amazonaws.com"
+    AWS_BUCKET_URL = "http://data-trojans-usc.s3-us-west-1.amazonaws.com"
     df = pd.read_csv(
         AWS_BUCKET_URL + "/" + filename + ".csv.gz").sample(frac=sample_size, random_state=1)
     return df
