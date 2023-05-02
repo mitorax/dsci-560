@@ -82,7 +82,7 @@ def run():
 
     st.markdown(
         """
-			### Avaiable features:
+			### Available features:
 			- Get a recommendation on living areas based on your preferences
 			- Future trends forecasting on living areas
 			- Explore the data and discover on your own
